@@ -27,11 +27,13 @@ namespace UPC.PiggySave.BL
             try
             {
                 var lstMovimientoBE = new List<MovimientoBE.Entidad>();
+                var objTarjetaBL = new TarjetaBL();
+                var tarjeta = objTarjetaBL.BuscarPorUsuario(objTransaccionBE.idTarjeta, objTransaccionBE.idUsuario);
                 for (int i = 0; i < objTransaccionBE.cuotas; i++) {
                     var objMovimientoBE = new MovimientoBE.Entidad()
                     {
                         idTransaccion = objTransaccionBE.idTransaccion,
-                        periodoFacturacion = 202108, //Debemos realizar el calculo de el periodo
+                        periodoFacturacion = CalcularPeriodoInicial(objTransaccionBE.fecha, tarjeta.value.diaCierre, i+1),
                         numeroCuota = i + 1,
                         idMoneda = objTransaccionBE.idMoneda,
                         monto = objTransaccionBE.montoCuota,
@@ -51,12 +53,12 @@ namespace UPC.PiggySave.BL
             return response;
         }
 
-        int CalcularPeriodoInicial(DateTime fechaTransaccion, int diaCierre) {
+        private int CalcularPeriodoInicial(DateTime fechaTransaccion, int diaCierre, int numeroCuota) {
             var periodo = 0;
             if (fechaTransaccion.Day > diaCierre)
-                periodo = fechaTransaccion.AddDays(32).Year * 100 + fechaTransaccion.AddDays(32).Month;
+                periodo = fechaTransaccion.AddMonths(numeroCuota).Year * 100 + fechaTransaccion.AddMonths(numeroCuota).Month;
             else
-                periodo = fechaTransaccion.Year * 100 + fechaTransaccion.Month;
+                periodo = fechaTransaccion.AddMonths(numeroCuota - 1).Year * 100 + fechaTransaccion.AddMonths(numeroCuota - 1).Month;
             return periodo;
         }
     }

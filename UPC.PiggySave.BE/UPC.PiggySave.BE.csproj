@@ -46,6 +46,7 @@
     <Compile Include="MovimientoBE.cs" />
     <Compile Include="PiggySaveException.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="TarjetaBE.cs" />
     <Compile Include="TransaccionBE.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

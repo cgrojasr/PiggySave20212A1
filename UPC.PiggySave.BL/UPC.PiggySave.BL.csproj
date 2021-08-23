@@ -45,6 +45,7 @@
     <Compile Include="MovimientoBL.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Response.cs" />
+    <Compile Include="TarjetaBL.cs" />
     <Compile Include="TransaccionBL.cs" />
   </ItemGroup>
   <ItemGroup>

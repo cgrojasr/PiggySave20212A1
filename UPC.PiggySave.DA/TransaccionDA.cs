@@ -61,6 +61,7 @@ namespace UPC.PiggySave.DA
                 transaccion.idTarjeta = objTransaccionBE.idTarjeta;
                 transaccion.idMoneda = objTransaccionBE.idMoneda;
                 transaccion.montoTotal = objTransaccionBE.montoTotal;
+                transaccion.montoCuota = objTransaccionBE.montoCuota;
                 transaccion.cuotas = objTransaccionBE.cuotas;
                 transaccion.fecha = objTransaccionBE.fecha;
                 transaccion.idUsuarioRegistro = objTransaccionBE.idUsuarioRegistro;

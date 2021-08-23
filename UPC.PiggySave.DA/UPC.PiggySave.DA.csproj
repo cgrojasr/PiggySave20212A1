@@ -55,6 +55,7 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
       <DependentUpon>Settings.settings</DependentUpon>
     </Compile>
+    <Compile Include="TarjetaDA.cs" />
     <Compile Include="TransaccionDA.cs" />
   </ItemGroup>
   <ItemGroup>
