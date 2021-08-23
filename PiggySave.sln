@@ -5,6 +5,46 @@ VisualStudioVersion = 16.0.31605.320
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UPC.PiggySave.DA", "UPC.PiggySave.DA\UPC.PiggySave.DA.csproj", "{DB459CD5-8B3D-4FAF-A485-869454266ACE}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UPC.PiggySave.BL", "UPC.PiggySave.BL\UPC.PiggySave.BL.csproj", "{04530806-1DF5-4F0C-BC6C-2A2508D3E906}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UPC.PiggySave.UT", "UPC.PiggySave.UT\UPC.PiggySave.UT.csproj", "{F471CA45-1B12-4F85-8CCB-F4EDECB45760}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UPC.PiggySave.BE", "UPC.PiggySave.BE\UPC.PiggySave.BE.csproj", "{9BEAAF6F-C59B-42DB-9A76-DA7A788C8821}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "00.Business Entity", "00.Business Entity", "{80F7F538-161D-46A3-BA11-137E8CC02FE4}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "01.Data Access", "01.Data Access", "{7F33CC9E-E3CD-4418-B5E6-C7D6A24505A4}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "02.Business Logic", "02.Business Logic", "{5B8E44DA-953F-47F2-A03E-EAC2C8C929D5}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "03.Unit Test", "03.Unit Test", "{B1E65203-5C58-473E-A809-C878FD07512D}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "04.Services", "04.Services", "{7AA7C4A8-04B5-42D5-9502-D084998086B0}"
+EndProject
+Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "UPC.PiggySave.SOAP(1)", "UPC.PiggySave.SOAP\", "{1DB971B7-4683-4FB2-ABE4-305E704453D1}"
+	ProjectSection(WebsiteProperties) = preProject
+		TargetFrameworkMoniker = ".NETFramework,Version%3Dv4.7.2"
+		Debug.AspNetCompiler.VirtualPath = "/localhost_49898"
+		Debug.AspNetCompiler.PhysicalPath = "UPC.PiggySave.SOAP\"
+		Debug.AspNetCompiler.TargetPath = "PrecompiledWeb\localhost_49898\"
+		Debug.AspNetCompiler.Updateable = "true"
+		Debug.AspNetCompiler.ForceOverwrite = "true"
+		Debug.AspNetCompiler.FixedNames = "false"
+		Debug.AspNetCompiler.Debug = "True"
+		Release.AspNetCompiler.VirtualPath = "/localhost_49898"
+		Release.AspNetCompiler.PhysicalPath = "UPC.PiggySave.SOAP\"
+		Release.AspNetCompiler.TargetPath = "PrecompiledWeb\localhost_49898\"
+		Release.AspNetCompiler.Updateable = "true"
+		Release.AspNetCompiler.ForceOverwrite = "true"
+		Release.AspNetCompiler.FixedNames = "false"
+		Release.AspNetCompiler.Debug = "False"
+		VWDPort = "49898"
+		SlnRelativePath = "UPC.PiggySave.SOAP\"
+		DefaultWebSiteLanguage = "Visual C#"
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UPC.PiggySave.REST", "UPC.PiggySave.REST\UPC.PiggySave.REST.csproj", "{E14DB91C-3D53-41CF-A6F5-8D4DED93627F}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,9 +55,37 @@ Global
 		{DB459CD5-8B3D-4FAF-A485-869454266ACE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DB459CD5-8B3D-4FAF-A485-869454266ACE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DB459CD5-8B3D-4FAF-A485-869454266ACE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{04530806-1DF5-4F0C-BC6C-2A2508D3E906}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{04530806-1DF5-4F0C-BC6C-2A2508D3E906}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{04530806-1DF5-4F0C-BC6C-2A2508D3E906}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{04530806-1DF5-4F0C-BC6C-2A2508D3E906}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F471CA45-1B12-4F85-8CCB-F4EDECB45760}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F471CA45-1B12-4F85-8CCB-F4EDECB45760}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F471CA45-1B12-4F85-8CCB-F4EDECB45760}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F471CA45-1B12-4F85-8CCB-F4EDECB45760}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9BEAAF6F-C59B-42DB-9A76-DA7A788C8821}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9BEAAF6F-C59B-42DB-9A76-DA7A788C8821}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9BEAAF6F-C59B-42DB-9A76-DA7A788C8821}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9BEAAF6F-C59B-42DB-9A76-DA7A788C8821}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1DB971B7-4683-4FB2-ABE4-305E704453D1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1DB971B7-4683-4FB2-ABE4-305E704453D1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1DB971B7-4683-4FB2-ABE4-305E704453D1}.Release|Any CPU.ActiveCfg = Debug|Any CPU
+		{1DB971B7-4683-4FB2-ABE4-305E704453D1}.Release|Any CPU.Build.0 = Debug|Any CPU
+		{E14DB91C-3D53-41CF-A6F5-8D4DED93627F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E14DB91C-3D53-41CF-A6F5-8D4DED93627F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E14DB91C-3D53-41CF-A6F5-8D4DED93627F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E14DB91C-3D53-41CF-A6F5-8D4DED93627F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{DB459CD5-8B3D-4FAF-A485-869454266ACE} = {7F33CC9E-E3CD-4418-B5E6-C7D6A24505A4}
+		{04530806-1DF5-4F0C-BC6C-2A2508D3E906} = {5B8E44DA-953F-47F2-A03E-EAC2C8C929D5}
+		{F471CA45-1B12-4F85-8CCB-F4EDECB45760} = {B1E65203-5C58-473E-A809-C878FD07512D}
+		{9BEAAF6F-C59B-42DB-9A76-DA7A788C8821} = {80F7F538-161D-46A3-BA11-137E8CC02FE4}
+		{1DB971B7-4683-4FB2-ABE4-305E704453D1} = {7AA7C4A8-04B5-42D5-9502-D084998086B0}
+		{E14DB91C-3D53-41CF-A6F5-8D4DED93627F} = {7AA7C4A8-04B5-42D5-9502-D084998086B0}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {130A05D6-1476-4F20-A527-ECFDC29AE86E}

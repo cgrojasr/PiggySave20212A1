@@ -1,0 +1,112 @@
+﻿<?xml version="1.0" encoding="utf-8"?><Database Name="dbPiggySave" Class="dbPiggySaveDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
+  <Connection Mode="AppSettings" ConnectionString="Data Source=upcdsd02.c7hd087gmch2.us-east-2.rds.amazonaws.com;Initial Catalog=dbPiggySave;Persist Security Info=True;User ID=admin" SettingsObjectName="UPC.PiggySave.DA.Properties.Settings" SettingsPropertyName="dbPiggySaveConnectionString" Provider="System.Data.SqlClient" />
+  <Table Name="dbo.Banco" Member="Bancos">
+    <Type Name="Banco">
+      <Column Name="idBanco" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="nombre" Type="System.String" DbType="VarChar(100) NOT NULL" CanBeNull="false" />
+      <Column Name="abreviatura" Type="System.String" DbType="VarChar(10) NOT NULL" CanBeNull="false" />
+      <Column Name="idUsuarioRegistro" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="fechaRegistro" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="idUsuarioModifico" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="fechaModifico" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="activo" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Association Name="Banco_Tarjeta" Member="Tarjetas" ThisKey="idBanco" OtherKey="idBanco" Type="Tarjeta" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Usuario" Member="Usuarios">
+    <Type Name="Usuario">
+      <Column Name="idUsuario" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="nombre" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="apellido" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="email" Type="System.String" DbType="VarChar(300) NOT NULL" CanBeNull="false" />
+      <Column Name="contrasena" Type="System.String" DbType="VarChar(20) NOT NULL" CanBeNull="false" />
+      <Column Name="idUsuarioRegistro" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="fechaRegistro" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="idUsuarioModifico" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="fechaModifico" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="activo" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Association Name="Usuario_TarjetaXUsuario" Member="TarjetaXUsuarios" ThisKey="idUsuario" OtherKey="idUsuario" Type="TarjetaXUsuario" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Moneda" Member="Monedas">
+    <Type Name="Moneda">
+      <Column Name="idMoneda" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="nombre" Type="System.String" DbType="VarChar(100) NOT NULL" CanBeNull="false" />
+      <Column Name="abreviatura" Type="System.String" DbType="VarChar(5) NOT NULL" CanBeNull="false" />
+      <Column Name="idUsuarioRegistro" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="fechaRegistro" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="idUsuarioModifico" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="fechaModifico" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="activo" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Association Name="Moneda_Movimiento" Member="Movimientos" ThisKey="idMoneda" OtherKey="idMoneda" Type="Movimiento" />
+      <Association Name="Moneda_Transaccion" Member="Transaccions" ThisKey="idMoneda" OtherKey="idMoneda" Type="Transaccion" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Movimiento" Member="Movimientos">
+    <Type Name="Movimiento">
+      <Column Name="idMovimiento" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="idTransaccion" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="periodoFacturacion" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="numeroCuota" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="idMoneda" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="monto" Type="System.Decimal" DbType="Decimal(18,2) NOT NULL" CanBeNull="false" />
+      <Column Name="idUsuarioRegistro" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="fechaRegistro" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="idUsuarioModifico" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="fechaModifico" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="activo" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Association Name="Moneda_Movimiento" Member="Moneda" ThisKey="idMoneda" OtherKey="idMoneda" Type="Moneda" IsForeignKey="true" />
+      <Association Name="Transaccion_Movimiento" Member="Transaccion" ThisKey="idTransaccion" OtherKey="idTransaccion" Type="Transaccion" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Tarjeta" Member="Tarjetas">
+    <Type Name="Tarjeta">
+      <Column Name="idTarjeta" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="nombre" Type="System.String" DbType="VarChar(100) NOT NULL" CanBeNull="false" />
+      <Column Name="idBanco" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="idUsuarioRegistro" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="fechaRegistro" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="idUsuarioModifico" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="fechaModifico" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="activo" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Association Name="Tarjeta_TarjetaXUsuario" Member="TarjetaXUsuarios" ThisKey="idTarjeta" OtherKey="idTarjeta" Type="TarjetaXUsuario" />
+      <Association Name="Banco_Tarjeta" Member="Banco" ThisKey="idBanco" OtherKey="idBanco" Type="Banco" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.TarjetaXUsuario" Member="TarjetaXUsuarios">
+    <Type Name="TarjetaXUsuario">
+      <Column Name="idUsuario" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="idTarjeta" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="numero" Type="System.String" DbType="VarChar(20) NOT NULL" CanBeNull="false" />
+      <Column Name="diaCierre" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="idUsuarioRegistro" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="fechaRegistro" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="idUsuarioModifico" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="fechaModifico" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="activo" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Association Name="TarjetaXUsuario_Transaccion" Member="Transaccions" ThisKey="idUsuario,idTarjeta" OtherKey="idUsuario,idTarjeta" Type="Transaccion" />
+      <Association Name="Tarjeta_TarjetaXUsuario" Member="Tarjeta" ThisKey="idTarjeta" OtherKey="idTarjeta" Type="Tarjeta" IsForeignKey="true" />
+      <Association Name="Usuario_TarjetaXUsuario" Member="Usuario" ThisKey="idUsuario" OtherKey="idUsuario" Type="Usuario" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Transaccion" Member="Transaccions">
+    <Type Name="Transaccion">
+      <Column Name="idTransaccion" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="fecha" Type="System.DateTime" DbType="Date NOT NULL" CanBeNull="false" />
+      <Column Name="idUsuario" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="idTarjeta" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="idMoneda" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="montoTotal" Type="System.Decimal" DbType="Decimal(18,2) NOT NULL" CanBeNull="false" />
+      <Column Name="cuotas" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="montoCuota" Type="System.Decimal" DbType="Decimal(18,2) NOT NULL" CanBeNull="false" />
+      <Column Name="idUsuarioRegistro" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="fechaRegistro" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="idUsuarioModifico" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="fechaModifico" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="activo" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Association Name="Transaccion_Movimiento" Member="Movimientos" ThisKey="idTransaccion" OtherKey="idTransaccion" Type="Movimiento" />
+      <Association Name="Moneda_Transaccion" Member="Moneda" ThisKey="idMoneda" OtherKey="idMoneda" Type="Moneda" IsForeignKey="true" />
+      <Association Name="TarjetaXUsuario_Transaccion" Member="TarjetaXUsuario" ThisKey="idUsuario,idTarjeta" OtherKey="idUsuario,idTarjeta" Type="TarjetaXUsuario" IsForeignKey="true" />
+    </Type>
+  </Table>
+</Database>
