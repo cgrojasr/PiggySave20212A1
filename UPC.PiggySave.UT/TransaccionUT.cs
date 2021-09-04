@@ -2,8 +2,8 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
-using UPC.PiggySave.BE;
 using UPC.PiggySave.BL;
+using UPC.PiggySave.DA;
 
 namespace UPC.PiggySave.UT
 {
@@ -23,29 +23,29 @@ namespace UPC.PiggySave.UT
         [TestMethod]
         public void Registrar()
         {
-            var objTransaccionBE = new TransaccionBE.Entidad
+            var objTransaccion = new Transaccion
             {
                 idUsuario = 1,
                 idTarjeta = 1,
                 fecha = DateTime.Now,
                 idMoneda = 1,
                 montoTotal = 3000,
-                cuotas = 3,
-                montoCuota = 1000,
+                cuotas = 6,
+                montoCuota = 500,
                 idUsuarioRegistro = 0,
                 fechaRegistro = DateTime.Now,
                 activo = true
             };
 
-            var response = objTransaccionBL.Registrar(objTransaccionBE);
+            var response = objTransaccionBL.Registrar(objTransaccion);
 
-            Assert.AreEqual(0, response.value);
+            Assert.AreEqual(23, response.idTransaccion);
         }
 
         [TestMethod]
         public void Modificar()
         {
-            var objTransaccionBE = new TransaccionBE.Entidad
+            var objTransaccion = new Transaccion
             {
                 idTransaccion = 3,
                 idUsuario = 1,
@@ -57,9 +57,9 @@ namespace UPC.PiggySave.UT
                 activo = false
             };
 
-            var response = objTransaccionBL.Modificar(objTransaccionBE);
+            var response = objTransaccionBL.Modificar(objTransaccion);
 
-            Assert.AreEqual(true, response.value);
+            Assert.AreEqual(true, response);
         }
     }
 }

@@ -1,14 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Linq;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using UPC.PiggySave.BE;
+using UPC.PiggySave.DA.Tools;
 
 namespace UPC.PiggySave.DA
 {
     interface IMovimientoDA {
-        List<MovimientoBE.Entidad> RegistroMasivo(List<MovimientoBE.Entidad> lstMovimientoBE);
+        IEnumerable<Movimiento> RegistroMasivo(List<Movimiento> lstMovimiento);
+        bool Eliminar(int idTransaccion);
     }
     public class MovimientoDA : IMovimientoDA
     {
@@ -19,51 +22,45 @@ namespace UPC.PiggySave.DA
             dc = new dbPiggySaveDataContext();
         }
 
-        private int Registro(MovimientoBE.Entidad objMovimientoBE)
+        public IEnumerable<Movimiento> RegistroMasivo(List<Movimiento> lstMovimiento)
         {
-            int id;
             try
             {
-                var movimiento = new Movimiento { 
-                    idTransaccion = objMovimientoBE.idTransaccion,
-                    periodoFacturacion = objMovimientoBE.periodoFacturacion,
-                    numeroCuota = objMovimientoBE.numeroCuota,
-                    idMoneda = objMovimientoBE.idMoneda,
-                    monto = objMovimientoBE.monto,
-                    idUsuarioRegistro = objMovimientoBE.idUsuarioRegistro,
-                    fechaRegistro = DateTime.Now,
-                    activo = true
-                };
-
-                dc.Movimientos.InsertOnSubmit(movimiento);
-
-                id = movimiento.idMovimiento;
+                dc.Movimientos.InsertAllOnSubmit(lstMovimiento);
+                dc.SubmitChanges();
+                
+                return lstMovimiento;
             }
             catch (Exception ex)
             {
-                throw ex;
+                var objException = new DAException(DAConstants.ExceptionMessage, ex);
+                throw objException;
             }
-
-            return id;
         }
 
-        public List<MovimientoBE.Entidad> RegistroMasivo(List<MovimientoBE.Entidad> lstMovimientoBE)
+        public bool Eliminar(int idTransaccion)
         {
+            bool respuesta;
             try
             {
-                foreach (var movimiento in lstMovimientoBE)
-                {
-                    var id = Registro(movimiento);
-                    movimiento.idMovimiento = id;
-                }
-                dc.SubmitChanges();
+                var movemientos = from mov in dc.Movimientos
+                                  where mov.idTransaccion.Equals(idTransaccion)
+                                  select mov;
 
-                return lstMovimientoBE;
+                foreach(Movimiento movimiento in movemientos) {
+                    movimiento.activo = false;
+                }
+
+                dc.SubmitChanges();
+                respuesta = true;
             }
             catch (Exception ex)
             {
-                return null;
+                var objException = new DAException(DAConstants.ExceptionMessage, ex);
+                throw objException;
             }
+
+            return respuesta;
         }
     }
 }
