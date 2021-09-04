@@ -18,5 +18,14 @@ namespace UPC.PiggySave.BE
             public int cuotas { get; set; }
             public decimal montoCuota { get; set; }
         }
+
+        public class Registro {
+            public Registro()
+            {
+                transaccion = new Entidad();
+            }
+            public Entidad transaccion { get; set; }
+            public IEnumerable<MovimientoBE.Entidad> movimientos { get; set; }
+        }
     }
 }

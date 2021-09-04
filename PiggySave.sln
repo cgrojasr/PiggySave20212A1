@@ -24,6 +24,7 @@ EndProject
 Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "UPC.PiggySave.SOAP(1)", "UPC.PiggySave.SOAP\", "{1DB971B7-4683-4FB2-ABE4-305E704453D1}"
 	ProjectSection(WebsiteProperties) = preProject
 		TargetFrameworkMoniker = ".NETFramework,Version%3Dv4.7.2"
+		ProjectReferences = "{04530806-1df5-4f0c-bc6c-2a2508d3e906}|UPC.PiggySave.BL.dll;{9BEAAF6F-C59B-42DB-9A76-DA7A788C8821}|UPC.PiggySave.BE.dll;{DB459CD5-8B3D-4FAF-A485-869454266ACE}|UPC.PiggySave.DA.dll;"
 		Debug.AspNetCompiler.VirtualPath = "/localhost_49898"
 		Debug.AspNetCompiler.PhysicalPath = "UPC.PiggySave.SOAP\"
 		Debug.AspNetCompiler.TargetPath = "PrecompiledWeb\localhost_49898\"

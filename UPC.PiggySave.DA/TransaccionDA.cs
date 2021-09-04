@@ -4,12 +4,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using UPC.PiggySave.BE;
+using UPC.PiggySave.DA.Tools;
 
 namespace UPC.PiggySave.DA
 {
     interface ITransaccionDA {
-        int Registro(TransaccionBE.Entidad objTransaccionBE);
-        bool Modificar(TransaccionBE.Entidad objTrasaccionBE);
+        int Registro(Transaccion objTransaccionBE);
+        bool Modificar(Transaccion objTrasaccionBE);
     }
 
     public class TransaccionDA : ITransaccionDA
@@ -21,23 +22,23 @@ namespace UPC.PiggySave.DA
             dc = new dbPiggySaveDataContext();
         }
 
-        public bool Modificar(TransaccionBE.Entidad objTrasaccionBE)
+        public bool Modificar(Transaccion objTrasaccion)
         {
             bool respuesta;
             try
             {
-                var query = (from trans in dc.Transaccions
-                            where trans.idTransaccion.Equals(objTrasaccionBE.idTransaccion)
-                            select trans).Single();
+                var transaccion = (from trans in dc.Transaccions
+                                   where trans.idTransaccion.Equals(objTrasaccion.idTransaccion)
+                                   select trans).Single();
 
-                query.idMoneda = objTrasaccionBE.idMoneda;
-                query.montoTotal = objTrasaccionBE.montoTotal;
-                query.cuotas = objTrasaccionBE.cuotas;
-                query.montoCuota = objTrasaccionBE.montoCuota;
-                query.activo = objTrasaccionBE.activo;
-                query.fecha = objTrasaccionBE.fecha;
-                query.idUsuarioModifico = objTrasaccionBE.idUsuarioRegistro;
-                query.fechaModifico = DateTime.Now;
+                transaccion.idMoneda = objTrasaccion.idMoneda;
+                transaccion.montoTotal = objTrasaccion.montoTotal;
+                transaccion.cuotas = objTrasaccion.cuotas;
+                transaccion.montoCuota = objTrasaccion.montoCuota;
+                transaccion.activo = objTrasaccion.activo;
+                transaccion.fecha = objTrasaccion.fecha;
+                transaccion.idUsuarioModifico = objTrasaccion.idUsuarioRegistro;
+                transaccion.fechaModifico = DateTime.Now;
 
                 dc.SubmitChanges();
 
@@ -45,37 +46,27 @@ namespace UPC.PiggySave.DA
             }
             catch (Exception ex)
             {
-                throw ex;
+                var objException = new DAException(DAConstants.ExceptionMessage, ex);
+                throw objException;
             }
 
             return respuesta;
         }
 
-        public int Registro(TransaccionBE.Entidad objTransaccionBE)
+        public int Registro(Transaccion objTransaccion)
         {
             int id;
             try
             {
-                var transaccion = new Transaccion();
-                transaccion.idUsuario = objTransaccionBE.idUsuario;
-                transaccion.idTarjeta = objTransaccionBE.idTarjeta;
-                transaccion.idMoneda = objTransaccionBE.idMoneda;
-                transaccion.montoTotal = objTransaccionBE.montoTotal;
-                transaccion.montoCuota = objTransaccionBE.montoCuota;
-                transaccion.cuotas = objTransaccionBE.cuotas;
-                transaccion.fecha = objTransaccionBE.fecha;
-                transaccion.idUsuarioRegistro = objTransaccionBE.idUsuarioRegistro;
-                transaccion.fechaRegistro = DateTime.Now;
-                transaccion.activo = true;
-
-                dc.Transaccions.InsertOnSubmit(transaccion);
+                dc.Transaccions.InsertOnSubmit(objTransaccion);
                 dc.SubmitChanges();
 
-                id = transaccion.idTransaccion;
+                id = objTransaccion.idTransaccion;
             }
             catch (Exception ex)
             {
-                throw ex;
+                var objException = new DAException(DAConstants.ExceptionMessage, ex);
+                throw objException;
             }
 
             return id;

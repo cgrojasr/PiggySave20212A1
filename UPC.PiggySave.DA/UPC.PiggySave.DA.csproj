@@ -43,6 +43,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BancoDA.cs" />
+    <Compile Include="Tools\DAConstants.cs" />
+    <Compile Include="Tools\DAException.cs" />
     <Compile Include="dbPiggySave.designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>

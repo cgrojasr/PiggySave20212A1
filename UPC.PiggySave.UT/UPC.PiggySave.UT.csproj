@@ -56,13 +56,13 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\UPC.PiggySave.BE\UPC.PiggySave.BE.csproj">
-      <Project>{9beaaf6f-c59b-42db-9a76-da7a788c8821}</Project>
-      <Name>UPC.PiggySave.BE</Name>
-    </ProjectReference>
     <ProjectReference Include="..\UPC.PiggySave.BL\UPC.PiggySave.BL.csproj">
       <Project>{04530806-1df5-4f0c-bc6c-2a2508d3e906}</Project>
       <Name>UPC.PiggySave.BL</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\UPC.PiggySave.DA\UPC.PiggySave.DA.csproj">
+      <Project>{db459cd5-8b3d-4faf-a485-869454266ace}</Project>
+      <Name>UPC.PiggySave.DA</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets" Condition="Exists('$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets')" />

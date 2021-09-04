@@ -4,13 +4,15 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using UPC.PiggySave.BE;
+using UPC.PiggySave.BL.Tools;
 using UPC.PiggySave.DA;
+using UPC.PiggySave.DA.Tools;
 
 namespace UPC.PiggySave.BL
 {
     interface ITransaccionBL {
-        Response<int> Registrar(TransaccionBE.Entidad objTransaccionBE);
-        Response<bool> Modificar(TransaccionBE.Entidad objTransaccionBE);
+        Transaccion Registrar(Transaccion objTransaccion);
+        bool Modificar(Transaccion objTransaccion);
     }
     public class TransaccionBL : ITransaccionBL
     {
@@ -20,59 +22,91 @@ namespace UPC.PiggySave.BL
             objTransaccionDA = new TransaccionDA();
         }
 
-        public Response<bool> Modificar(TransaccionBE.Entidad objTransaccionBE)
+        public bool Modificar(Transaccion objTransaccion)
         {
-            var response = new Response<bool>();
+            bool respuesta;
             try
             {
-                if (objTransaccionBE.montoTotal.Equals(0))
-                    throw new PiggySaveException("Tu monto no puede ser menor o igual a 0");
+                if (objTransaccion.montoTotal.Equals(0))
+                    throw new BLException("Tu monto no puede ser menor o igual a 0");
 
-                var value = objTransaccionDA.Modificar(objTransaccionBE);
-                response.value = value;
+                respuesta = objTransaccionDA.Modificar(objTransaccion);
             }
-            catch (PiggySaveException pgex)
-            {
-                response.error = true;
-                response.errorMessage = pgex.Message;
+            catch (DAException DAex) {
+                throw new PiggySaveException(DAex.Message);
             }
-            catch (Exception)
+            catch (BLException BLex)
             {
-                response.error = true;
-                response.errorMessage = "La transacción no pudo ser modificada, por favor inténtelo más tarde";
+                throw new PiggySaveException(BLex.Message);
+            }
+            catch (Exception ex)
+            {
+                var objBLException = new BLException(BLConstants.ExceptionMessage, ex);
+                throw new PiggySaveException(objBLException.Message);
             }
 
-            return response;
+            return respuesta;
         }
 
-        public Response<int> Registrar(TransaccionBE.Entidad objTransaccionBE)
+        public Transaccion Registrar(Transaccion objTransaccion)
         {
-            var response = new Response<int>();
             try
             {
-                if (objTransaccionBE.montoTotal.Equals(0))
+                if (objTransaccion.montoTotal.Equals(0))
                     throw new PiggySaveException("Tu monto no puede ser menor o igual a 0");
 
-                var value = objTransaccionDA.Registro(objTransaccionBE);
+                //PASO 1: Se registra la transacción
+                objTransaccion.fechaRegistro = DateTime.Now;
+                objTransaccion.activo = true;
+                objTransaccion.idTransaccion = objTransaccionDA.Registro(objTransaccion);
 
-                //Registrar los movimiento que se generan de la transaccion 
-                var objMovimientoBL = new MovimientoBL();
-                objTransaccionBE.idTransaccion = value;
-                var lstMovimientos = objMovimientoBL.RegistroMasivo(objTransaccionBE);
+                //PASO 2: Se debe buscar los datos de la tarjeta utilizada por el usuario
+                var objTarjetaDA = new TarjetaDA();
+                var tarjeta = objTarjetaDA.BuscarPorUsuario(objTransaccion.idTarjeta, objTransaccion.idUsuario);
 
-                response.value = value;
+                //PASO 3: Registrar los movimiento que se generan de la transaccion 
+                var movimientos = new List<Movimiento>();
+                for (int i=0; i<objTransaccion.cuotas; i++) {
+                    var movimiento = new Movimiento {
+                        idTransaccion = objTransaccion.idTransaccion,
+                        idMoneda = objTransaccion.idMoneda,
+                        idUsuarioRegistro = objTransaccion.idUsuarioRegistro,
+                        numeroCuota = i + 1,
+                        periodoFacturacion = CalcularPeriodo(objTransaccion.fecha, tarjeta.diaCierre, i + 1),
+                        monto = objTransaccion.montoCuota,
+                        fechaRegistro = DateTime.Now,
+                        activo = true
+                    };
+                    movimientos.Add(movimiento);
+                }
+                var objMovimientoDA = new MovimientoDA();
+                objTransaccion.Movimientos.Assign(objMovimientoDA.RegistroMasivo(movimientos));
             }
-            catch (PiggySaveException pgex) {
-                response.error = true;
-                response.errorMessage = pgex.Message;
-            }
-            catch (Exception)
+            catch (DAException DAex)
             {
-                response.error = true;
-                response.errorMessage = "La transacción no pudo ser registrada, por favor inténtelo más tarde";
+                throw new PiggySaveException(DAex.Message);
+            }
+            catch (BLException BLex)
+            {
+                throw new PiggySaveException(BLex.Message);
+            }
+            catch (Exception ex)
+            {
+                var objBLException = new BLException(BLConstants.ExceptionMessage, ex);
+                throw new PiggySaveException(objBLException.Message);
             }
 
-            return response;
+            return objTransaccion;
+        }
+
+        private int CalcularPeriodo(DateTime fechaTransaccion, int diaCierre, int numeroCuota)
+        {
+            var periodo = 0;
+            if (fechaTransaccion.Day > diaCierre)
+                periodo = fechaTransaccion.AddMonths(numeroCuota).Year * 100 + fechaTransaccion.AddMonths(numeroCuota).Month;
+            else
+                periodo = fechaTransaccion.AddMonths(numeroCuota - 1).Year * 100 + fechaTransaccion.AddMonths(numeroCuota - 1).Month;
+            return periodo;
         }
     }
 }

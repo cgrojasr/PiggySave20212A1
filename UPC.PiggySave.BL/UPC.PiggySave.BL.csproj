@@ -33,6 +33,7 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Data.Linq" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -42,10 +43,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BancoBL.cs" />
-    <Compile Include="MovimientoBL.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Response.cs" />
-    <Compile Include="TarjetaBL.cs" />
+    <Compile Include="Tools\BLConstants.cs" />
+    <Compile Include="Tools\BLException.cs" />
     <Compile Include="TransaccionBL.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -58,5 +58,9 @@
       <Name>UPC.PiggySave.DA</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Connected Services\" />
+  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

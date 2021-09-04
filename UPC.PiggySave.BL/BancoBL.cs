@@ -8,30 +8,30 @@ using UPC.PiggySave.BE;
 namespace UPC.PiggySave.BL
 {
     interface IBancoBL {
-        Response<int> Registrar(BancoBE.Entidad objBancoBE);
-        Response<bool> Modificar(BancoBE.Entidad objBancoBE);
-        Response<BancoBE.Entidad> Buscar(int idBanco);
-        Response<bool> Eliminar(int idBanco);
+        int Registrar(BancoBE.Entidad objBancoBE);
+        bool Modificar(BancoBE.Entidad objBancoBE);
+        BancoBE.Entidad Buscar(int idBanco);
+        bool Eliminar(int idBanco);
     }
 
     public class BancoBL : IBancoBL
     {
-        public Response<BancoBE.Entidad> Buscar(int idBanco)
+        public BancoBE.Entidad Buscar(int idBanco)
         {
             throw new NotImplementedException();
         }
 
-        public Response<bool> Eliminar(int idBanco)
+        public bool Eliminar(int idBanco)
         {
             throw new NotImplementedException();
         }
 
-        public Response<bool> Modificar(BancoBE.Entidad objBancoBE)
+        public bool Modificar(BancoBE.Entidad objBancoBE)
         {
             throw new NotImplementedException();
         }
 
-        public Response<int> Registrar(BancoBE.Entidad objBancoBE)
+        public int Registrar(BancoBE.Entidad objBancoBE)
         {
             throw new NotImplementedException();
         }

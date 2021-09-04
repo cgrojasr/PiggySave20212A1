@@ -4,12 +4,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using UPC.PiggySave.BE;
+using UPC.PiggySave.DA.Tools;
 
 namespace UPC.PiggySave.DA
 {
     interface ITarjetaDA
     {
-        TarjetaBE.TarjetaUsuario BuscarPorUsuario(int idTarjeta, int idUsuario);
+        TarjetaXUsuario BuscarPorUsuario(int idTarjeta, int idUsuario);
     }
     public class TarjetaDA : ITarjetaDA
     {
@@ -19,25 +20,22 @@ namespace UPC.PiggySave.DA
             dc = new dbPiggySaveDataContext();
         }
 
-        public TarjetaBE.TarjetaUsuario BuscarPorUsuario(int idTarjeta, int idUsuario)
+        public TarjetaXUsuario BuscarPorUsuario(int idTarjeta, int idUsuario)
         {
-            var objTarjetaBE = new TarjetaBE.TarjetaUsuario();
+            var tarjeta = new TarjetaXUsuario();
             try
             {
-                var tarjeta = (from tarusu in dc.TarjetaXUsuarios
-                               where tarusu.idTarjeta.Equals(idTarjeta) && tarusu.idUsuario.Equals(idUsuario)
-                               select tarusu).Single();
-
-                objTarjetaBE.idUsuario = tarjeta.idUsuario;
-                objTarjetaBE.idTarjeta = tarjeta.idTarjeta;
-                objTarjetaBE.diaCierre = tarjeta.diaCierre;
+                tarjeta = (from tarusu in dc.TarjetaXUsuarios
+                           where tarusu.idTarjeta.Equals(idTarjeta) && tarusu.idUsuario.Equals(idUsuario)
+                           select tarusu).Single();
             }
             catch (Exception ex)
             {
-                throw ex;
+                var objException = new DAException(DAConstants.ExceptionMessage, ex);
+                throw objException;
             }
 
-            return objTarjetaBE;
+            return tarjeta;
         }
     }
 }
