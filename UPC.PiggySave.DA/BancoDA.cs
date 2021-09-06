@@ -8,6 +8,7 @@ using UPC.PiggySave.DA.Tools;
 namespace UPC.PiggySave.DA
 {
     interface IBancoDA {
+        IEnumerable<Banco> ListarPorActivo(bool activo);
         Banco Registrar(Banco objBancoBE);
         bool Modificar(Banco objBancoBE);
         Banco Buscar(int idBanco);
@@ -60,6 +61,33 @@ namespace UPC.PiggySave.DA
                 dc.SubmitChanges();
 
                 return true;
+            }
+            catch (Exception ex)
+            {
+                throw new DAException(DAConstants.ExceptionMessage, ex);
+            }
+        }
+
+        public IEnumerable<Banco> ListarPorActivo(bool activo)
+        {
+            try
+            {
+                try
+                {
+                    var lista = from ban in dc.Bancos
+                                where ban.activo.Equals(activo)
+                                select ban;
+
+                    return lista;
+                }
+                catch (InvalidOperationException)
+                {
+                    throw new DAException("No se encontro registros con el parametro ingresado");
+                }
+            }
+            catch (DAException daex)
+            {
+                throw daex;
             }
             catch (Exception ex)
             {

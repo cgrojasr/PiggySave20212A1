@@ -16,10 +16,11 @@ public class Response<T>
         // TODO: Add constructor logic here
         //
     }
+
     [DataMember]
     public T value { get; set; }
     [DataMember]
     public bool error { get; set; }
     [DataMember]
-    public string message { get; set; }
+    public string errorMessage { get; set; }
 }

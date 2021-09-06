@@ -86,7 +86,7 @@ public class TransaccionSOAP : ITransaccionSOAP
         catch (Exception ex)
         {
             response.error = true;
-            response.message = ex.Message;
+            response.errorMessage = ex.Message;
         }
 
         return response;

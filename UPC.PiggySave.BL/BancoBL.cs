@@ -14,6 +14,7 @@ namespace UPC.PiggySave.BL
         bool Modificar(Banco objBanco);
         Banco Buscar(int idBanco);
         bool Eliminar(int idBanco);
+        IEnumerable<Banco> ListarPorActivo(bool activo);
     }
 
     public class BancoBL : IBancoBL
@@ -46,6 +47,23 @@ namespace UPC.PiggySave.BL
             try
             {
                 return objBancoDA.Eliminar(idBanco);
+            }
+            catch (DAException DAex)
+            {
+                throw new PiggySaveException(DAex.Message);
+            }
+            catch (Exception ex)
+            {
+                var objBLException = new BLException(BLConstants.ExceptionMessage, ex);
+                throw new PiggySaveException(objBLException.Message);
+            }
+        }
+
+        public IEnumerable<Banco> ListarPorActivo(bool activo)
+        {
+            try
+            {
+                return objBancoDA.ListarPorActivo(activo);
             }
             catch (DAException DAex)
             {

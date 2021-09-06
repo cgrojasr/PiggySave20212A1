@@ -14,57 +14,57 @@ namespace UPC.PiggySave.REST.Controllers
     [RoutePrefix("api/transaccion")]
     public class TransaccionController : ApiController
     {
-        TransaccionBL objTransaccionBL;
+        private readonly TransaccionBL objTransaccionBL;
         public TransaccionController()
         {
             objTransaccionBL = new TransaccionBL();
         }
 
         [HttpPost]
-        public IHttpActionResult Registrar(TransaccionModel.RegistroRequest request)
+        public IHttpActionResult Registrar(TransaccionModel objTransaccionModel)
         {
-            var response = new Response<TransaccionModel.RegistroResponse>();
+            var response = new Response<TransaccionModel>();
             try
             {
-                var transaccion = new Transaccion
+                try
                 {
-                    idMoneda = request.idMoneda,
-                    idUsuario = request.idUsuario,
-                    idTarjeta = request.idTarjeta,
-                    montoTotal = request.montoTotal,
-                    cuotas = request.cuotas,
-                    montoCuota = request.montoCuota,
-                    fecha = request.fecha,
-                    idUsuarioRegistro = request.idUsuarioRegistro
-                };
-                transaccion = objTransaccionBL.Registrar(transaccion);
-                request.idTransaccion = transaccion.idTransaccion;
-                var movimientos = new List<MovimientoModel.RegistroResponse>();
-                foreach(Movimiento movimiento in transaccion.Movimientos)
-                {
-                    var objMovimietoModel = new MovimientoModel.RegistroResponse { 
-                        idMovimiento = movimiento.idMovimiento,
-                        monto = movimiento.monto,
-                        periodoFacturacion = movimiento.periodoFacturacion
+                    var transaccion = new Transaccion
+                    {
+                        idMoneda = objTransaccionModel.idMoneda,
+                        idUsuario = objTransaccionModel.idUsuario,
+                        idTarjeta = objTransaccionModel.idTarjeta,
+                        montoTotal = objTransaccionModel.montoTotal,
+                        cuotas = objTransaccionModel.cuotas,
+                        montoCuota = objTransaccionModel.montoCuota,
+                        fecha = objTransaccionModel.fecha,
+                        idUsuarioRegistro = objTransaccionModel.idUsuarioRegistro
                     };
-                    movimientos.Add(objMovimietoModel);
+                    transaccion = objTransaccionBL.Registrar(transaccion);
+                    objTransaccionModel.idTransaccion = transaccion.idTransaccion;
+                    var movimientos = new List<MovimientoModel>();
+                    foreach (Movimiento movimiento in transaccion.Movimientos)
+                    {
+                        var objMovimietoModel = new MovimientoModel
+                        {
+                            idMovimiento = movimiento.idMovimiento,
+                            monto = movimiento.monto,
+                            numeroCuota = movimiento.numeroCuota,
+                            periodoFacturacion = movimiento.periodoFacturacion
+                        };
+                        movimientos.Add(objMovimietoModel);
+                    }
+
+                    objTransaccionModel.movimientos = movimientos;
+
+                    response.value = objTransaccionModel;
+                }
+                catch (PiggySaveException PSex)
+                {
+                    response.error = true;
+                    response.errorMessage = PSex.Message;
                 }
 
-                var objTransaccionModel = new TransaccionModel.RegistroResponse
-                {
-                    transaccion = request,
-                    movimientos = movimientos
-                };
-
-                response.value = objTransaccionModel;
-
                 return Ok(response);
-            }
-            catch (PiggySaveException PSex)
-            {
-                response.error = true;
-                response.errorMessage = PSex.Message;
-                return Ok(request);
             }
             catch (Exception)
             {

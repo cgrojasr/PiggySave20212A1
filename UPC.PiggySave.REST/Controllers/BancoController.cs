@@ -27,11 +27,11 @@ namespace UPC.PiggySave.REST.Controllers
         {
             try
             {
-                var response = new Response<BancoModel.Registro>();
+                var response = new Response<BancoModel>();
                 try
                 {
                     var objBanco = objBancoBL.Buscar(idBanco);
-                    var objBancoModel = new BancoModel.Registro()
+                    var objBancoModel = new BancoModel()
                     {
                         idBanco = objBanco.idBanco,
                         nombre = objBanco.nombre,
@@ -54,7 +54,7 @@ namespace UPC.PiggySave.REST.Controllers
         }
 
         [HttpPut]
-        public IHttpActionResult Modificar(BancoModel.Registro objBancoModel)
+        public IHttpActionResult Modificar(BancoModel objBancoModel)
         {
             try
             {
@@ -112,11 +112,11 @@ namespace UPC.PiggySave.REST.Controllers
         }
 
         [HttpPost]
-        public IHttpActionResult Registrar(BancoModel.Registro objBancoModel)
+        public IHttpActionResult Registrar(BancoModel objBancoModel)
         {
             try
             {
-                var response = new Response<BancoModel.Registro>();
+                var response = new Response<BancoModel>();
                 try
                 {
                     var objBanco = new Banco()

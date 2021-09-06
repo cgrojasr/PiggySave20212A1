@@ -60,6 +60,7 @@
     </Compile>
     <Compile Include="TarjetaDA.cs" />
     <Compile Include="TransaccionDA.cs" />
+    <Compile Include="UsuarioDA.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
