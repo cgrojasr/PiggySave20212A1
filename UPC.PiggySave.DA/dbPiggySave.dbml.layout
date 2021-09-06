@@ -59,7 +59,7 @@
         <classShapeMoniker Id="786c1c7f-4453-479c-824a-c5d70698d4e8" />
       </nodes>
     </associationConnector>
-    <associationConnector edgePoints="[(5.93442503649425 : 4.98240397135417); (5.93442503649425 : 5.75)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+    <associationConnector edgePoints="[(6.53125 : 4.98240397135417); (6.53125 : 5.75)]" fixedFrom="Algorithm" fixedTo="Algorithm">
       <AssociationMoniker Name="/dbPiggySaveDataContext/Usuario/Usuario_TarjetaXUsuario" />
       <nodes>
         <classShapeMoniker Id="6fecfe96-ccca-442e-a095-31a6ad175113" />
@@ -72,26 +72,32 @@
         <elementListCompartment Id="899a740c-ce74-4c47-bc20-6739f33262e9" absoluteBounds="8.265, 5.835, 1.9700000000000002, 2.7493082682291665" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
-    <associationConnector edgePoints="[(10.25 : 7.08735270182292); (12.5 : 7.08735270182292)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+    <associationConnector edgePoints="[(10.25 : 7.08735270182292); (12.5 : 7.08735270182292)]" fixedFrom="NotFixed" fixedTo="NotFixed">
       <AssociationMoniker Name="/dbPiggySaveDataContext/Transaccion/Transaccion_Movimiento" />
       <nodes>
         <classShapeMoniker Id="8be48a41-f85c-4220-a4c6-ec60d324fbd7" />
         <classShapeMoniker Id="1fe2f2a7-243f-4c4a-bd24-08050e6e48e6" />
       </nodes>
     </associationConnector>
-    <associationConnector edgePoints="[(11.59375 : 4.59780110677083); (11.59375 : 5.46875); (10.25 : 5.46875)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+    <associationConnector edgePoints="[(11.59375 : 4.59780110677083); (11.59375 : 5.46875); (10.25 : 5.46875)]" fixedFrom="NotFixed" fixedTo="NotFixed">
       <AssociationMoniker Name="/dbPiggySaveDataContext/Moneda/Moneda_Transaccion" />
       <nodes>
         <classShapeMoniker Id="d1e62f83-5c0d-47e8-8814-34c2f5f12961" />
         <classShapeMoniker Id="8be48a41-f85c-4220-a4c6-ec60d324fbd7" />
       </nodes>
     </associationConnector>
-    <associationConnector edgePoints="[(7 : 7.02005126953125); (8.25 : 7.02005126953125)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+    <associationConnector edgePoints="[(7 : 7.02005126953125); (8.25 : 7.02005126953125)]" fixedFrom="NotFixed" fixedTo="NotFixed">
       <AssociationMoniker Name="/dbPiggySaveDataContext/TarjetaXUsuario/TarjetaXUsuario_Transaccion" />
       <nodes>
         <classShapeMoniker Id="786c1c7f-4453-479c-824a-c5d70698d4e8" />
         <classShapeMoniker Id="8be48a41-f85c-4220-a4c6-ec60d324fbd7" />
       </nodes>
     </associationConnector>
+    <classShape Id="f18d613c-58b3-48c2-8df8-baa74f7e026b" absoluteBounds="2.125, 2.25, 2, 1.7708968098958331">
+      <DataClassMoniker Name="/dbPiggySaveDataContext/Excepcion" />
+      <nestedChildShapes>
+        <elementListCompartment Id="6ab2f190-712b-4f5e-a493-d96cc42ff1b4" absoluteBounds="2.14, 2.71, 1.9700000000000002, 1.2108968098958333" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
   </nestedChildShapes>
 </ordesignerObjectsDiagram>

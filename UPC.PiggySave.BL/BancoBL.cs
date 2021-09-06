@@ -3,37 +3,95 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using UPC.PiggySave.BE;
+using UPC.PiggySave.BL.Tools;
+using UPC.PiggySave.DA;
+using UPC.PiggySave.DA.Tools;
 
 namespace UPC.PiggySave.BL
 {
     interface IBancoBL {
-        int Registrar(BancoBE.Entidad objBancoBE);
-        bool Modificar(BancoBE.Entidad objBancoBE);
-        BancoBE.Entidad Buscar(int idBanco);
+        Banco Registrar(Banco objBanco);
+        bool Modificar(Banco objBanco);
+        Banco Buscar(int idBanco);
         bool Eliminar(int idBanco);
     }
 
     public class BancoBL : IBancoBL
     {
-        public BancoBE.Entidad Buscar(int idBanco)
+        BancoDA objBancoDA;
+        public BancoBL()
         {
-            throw new NotImplementedException();
+            objBancoDA = new BancoDA();
+        }
+
+        public Banco Buscar(int idBanco)
+        {
+            try
+            {
+                return objBancoDA.Buscar(idBanco);
+            }
+            catch (DAException DAex)
+            {
+                throw new PiggySaveException(DAex.Message);
+            }
+            catch (Exception ex)
+            {
+                var objBLException = new BLException(BLConstants.ExceptionMessage, ex);
+                throw new PiggySaveException(objBLException.Message);
+            }
         }
 
         public bool Eliminar(int idBanco)
         {
-            throw new NotImplementedException();
+            try
+            {
+                return objBancoDA.Eliminar(idBanco);
+            }
+            catch (DAException DAex)
+            {
+                throw new PiggySaveException(DAex.Message);
+            }
+            catch (Exception ex)
+            {
+                var objBLException = new BLException(BLConstants.ExceptionMessage, ex);
+                throw new PiggySaveException(objBLException.Message);
+            }
         }
 
-        public bool Modificar(BancoBE.Entidad objBancoBE)
+        public bool Modificar(Banco objBanco)
         {
-            throw new NotImplementedException();
+            try
+            {
+                objBanco.fechaModifico = DateTime.Now;
+                return objBancoDA.Modificar(objBanco);
+            }
+            catch(DAException DAex)
+            {
+                throw new PiggySaveException(DAex.Message);
+            }
+            catch (Exception ex)
+            {
+                var objBLException = new BLException(BLConstants.ExceptionMessage, ex);
+                throw new PiggySaveException(objBLException.Message);
+            }
         }
 
-        public int Registrar(BancoBE.Entidad objBancoBE)
+        public Banco Registrar(Banco objBanco)
         {
-            throw new NotImplementedException();
+            try
+            {
+                objBanco.fechaRegistro = DateTime.Now;
+                return objBancoDA.Registrar(objBanco);
+            }
+            catch (DAException DAex)
+            {
+                throw new PiggySaveException(DAex.Message);
+            }
+            catch (Exception ex)
+            {
+                var objBLException = new BLException(BLConstants.ExceptionMessage, ex);
+                throw new PiggySaveException(objBLException.Message);
+            }
         }
     }
 }

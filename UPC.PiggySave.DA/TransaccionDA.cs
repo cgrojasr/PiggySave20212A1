@@ -3,13 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using UPC.PiggySave.BE;
 using UPC.PiggySave.DA.Tools;
 
 namespace UPC.PiggySave.DA
 {
     interface ITransaccionDA {
-        int Registro(Transaccion objTransaccionBE);
+        Transaccion Registro(Transaccion objTransaccionBE);
         bool Modificar(Transaccion objTrasaccionBE);
     }
 
@@ -24,7 +23,6 @@ namespace UPC.PiggySave.DA
 
         public bool Modificar(Transaccion objTrasaccion)
         {
-            bool respuesta;
             try
             {
                 var transaccion = (from trans in dc.Transaccions
@@ -42,34 +40,29 @@ namespace UPC.PiggySave.DA
 
                 dc.SubmitChanges();
 
-                respuesta = true;
+                return true;
             }
             catch (Exception ex)
             {
                 var objException = new DAException(DAConstants.ExceptionMessage, ex);
                 throw objException;
             }
-
-            return respuesta;
         }
 
-        public int Registro(Transaccion objTransaccion)
+        public Transaccion Registro(Transaccion objTransaccion)
         {
-            int id;
             try
             {
                 dc.Transaccions.InsertOnSubmit(objTransaccion);
                 dc.SubmitChanges();
 
-                id = objTransaccion.idTransaccion;
+                return objTransaccion;
             }
             catch (Exception ex)
             {
                 var objException = new DAException(DAConstants.ExceptionMessage, ex);
                 throw objException;
             }
-
-            return id;
         }
     }
 }

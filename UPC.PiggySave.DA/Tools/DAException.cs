@@ -21,6 +21,16 @@ namespace UPC.PiggySave.DA.Tools
         public DAException(string message, Exception inner)
             : base(message, inner)
         {
+            var excepcion = new Excepcion
+            {
+                message = inner.Message,
+                tipoException = inner.GetType().Name,
+                fechaRegistro = DateTime.Now,
+                clase = inner.Source
+            };
+
+            var objExcepcionDA = new ExcepcionDA();
+            objExcepcionDA.Registro(excepcion);
         }
     }
 }

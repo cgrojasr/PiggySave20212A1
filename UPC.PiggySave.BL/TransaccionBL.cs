@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using UPC.PiggySave.BE;
 using UPC.PiggySave.BL.Tools;
 using UPC.PiggySave.DA;
 using UPC.PiggySave.DA.Tools;
@@ -53,12 +52,12 @@ namespace UPC.PiggySave.BL
             try
             {
                 if (objTransaccion.montoTotal.Equals(0))
-                    throw new PiggySaveException("Tu monto no puede ser menor o igual a 0");
+                    throw new BLException("Tu monto no puede ser menor o igual a 0");
 
                 //PASO 1: Se registra la transacción
                 objTransaccion.fechaRegistro = DateTime.Now;
                 objTransaccion.activo = true;
-                objTransaccion.idTransaccion = objTransaccionDA.Registro(objTransaccion);
+                objTransaccion = objTransaccionDA.Registro(objTransaccion);
 
                 //PASO 2: Se debe buscar los datos de la tarjeta utilizada por el usuario
                 var objTarjetaDA = new TarjetaDA();

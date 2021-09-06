@@ -43,6 +43,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BancoDA.cs" />
+    <Compile Include="ExcepcionDA.cs" />
     <Compile Include="Tools\DAConstants.cs" />
     <Compile Include="Tools\DAException.cs" />
     <Compile Include="dbPiggySave.designer.cs">
@@ -77,12 +78,6 @@
   </ItemGroup>
   <ItemGroup>
     <Service Include="{3259AA49-8AA1-44D3-9025-A0B520596A8C}" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\UPC.PiggySave.BE\UPC.PiggySave.BE.csproj">
-      <Project>{9beaaf6f-c59b-42db-9a76-da7a788c8821}</Project>
-      <Name>UPC.PiggySave.BE</Name>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

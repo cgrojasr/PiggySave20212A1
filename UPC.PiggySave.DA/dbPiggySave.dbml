@@ -109,4 +109,13 @@
       <Association Name="TarjetaXUsuario_Transaccion" Member="TarjetaXUsuario" ThisKey="idUsuario,idTarjeta" OtherKey="idUsuario,idTarjeta" Type="TarjetaXUsuario" IsForeignKey="true" />
     </Type>
   </Table>
+  <Table Name="dbo.Excepcion" Member="Excepcions">
+    <Type Name="Excepcion">
+      <Column Name="idException" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="clase" Type="System.String" DbType="VarChar(500) NOT NULL" CanBeNull="false" />
+      <Column Name="message" Type="System.String" DbType="VarChar(4000) NOT NULL" CanBeNull="false" />
+      <Column Name="tipoException" Type="System.String" DbType="VarChar(500) NOT NULL" CanBeNull="false" />
+      <Column Name="fechaRegistro" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+    </Type>
+  </Table>
 </Database>

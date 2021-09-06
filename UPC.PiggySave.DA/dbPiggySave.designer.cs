@@ -51,6 +51,9 @@ namespace UPC.PiggySave.DA
     partial void InsertTransaccion(Transaccion instance);
     partial void UpdateTransaccion(Transaccion instance);
     partial void DeleteTransaccion(Transaccion instance);
+    partial void InsertExcepcion(Excepcion instance);
+    partial void UpdateExcepcion(Excepcion instance);
+    partial void DeleteExcepcion(Excepcion instance);
     #endregion
 		
 		public dbPiggySaveDataContext() : 
@@ -136,6 +139,14 @@ namespace UPC.PiggySave.DA
 			get
 			{
 				return this.GetTable<Transaccion>();
+			}
+		}
+		
+		public System.Data.Linq.Table<Excepcion> Excepcions
+		{
+			get
+			{
+				return this.GetTable<Excepcion>();
 			}
 		}
 	}
@@ -2500,6 +2511,164 @@ namespace UPC.PiggySave.DA
 		{
 			this.SendPropertyChanging();
 			entity.Transaccion = null;
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Excepcion")]
+	public partial class Excepcion : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private int _idException;
+		
+		private string _clase;
+		
+		private string _message;
+		
+		private string _tipoException;
+		
+		private System.DateTime _fechaRegistro;
+		
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnidExceptionChanging(int value);
+    partial void OnidExceptionChanged();
+    partial void OnclaseChanging(string value);
+    partial void OnclaseChanged();
+    partial void OnmessageChanging(string value);
+    partial void OnmessageChanged();
+    partial void OntipoExceptionChanging(string value);
+    partial void OntipoExceptionChanged();
+    partial void OnfechaRegistroChanging(System.DateTime value);
+    partial void OnfechaRegistroChanged();
+    #endregion
+		
+		public Excepcion()
+		{
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_idException", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
+		public int idException
+		{
+			get
+			{
+				return this._idException;
+			}
+			set
+			{
+				if ((this._idException != value))
+				{
+					this.OnidExceptionChanging(value);
+					this.SendPropertyChanging();
+					this._idException = value;
+					this.SendPropertyChanged("idException");
+					this.OnidExceptionChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_clase", DbType="VarChar(500) NOT NULL", CanBeNull=false)]
+		public string clase
+		{
+			get
+			{
+				return this._clase;
+			}
+			set
+			{
+				if ((this._clase != value))
+				{
+					this.OnclaseChanging(value);
+					this.SendPropertyChanging();
+					this._clase = value;
+					this.SendPropertyChanged("clase");
+					this.OnclaseChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_message", DbType="VarChar(4000) NOT NULL", CanBeNull=false)]
+		public string message
+		{
+			get
+			{
+				return this._message;
+			}
+			set
+			{
+				if ((this._message != value))
+				{
+					this.OnmessageChanging(value);
+					this.SendPropertyChanging();
+					this._message = value;
+					this.SendPropertyChanged("message");
+					this.OnmessageChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_tipoException", DbType="VarChar(500) NOT NULL", CanBeNull=false)]
+		public string tipoException
+		{
+			get
+			{
+				return this._tipoException;
+			}
+			set
+			{
+				if ((this._tipoException != value))
+				{
+					this.OntipoExceptionChanging(value);
+					this.SendPropertyChanging();
+					this._tipoException = value;
+					this.SendPropertyChanged("tipoException");
+					this.OntipoExceptionChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_fechaRegistro", DbType="DateTime NOT NULL")]
+		public System.DateTime fechaRegistro
+		{
+			get
+			{
+				return this._fechaRegistro;
+			}
+			set
+			{
+				if ((this._fechaRegistro != value))
+				{
+					this.OnfechaRegistroChanging(value);
+					this.SendPropertyChanging();
+					this._fechaRegistro = value;
+					this.SendPropertyChanged("fechaRegistro");
+					this.OnfechaRegistroChanged();
+				}
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
 		}
 	}
 }

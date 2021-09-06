@@ -3,17 +3,17 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using UPC.PiggySave.BE;
+using UPC.PiggySave.DA.Tools;
 
 namespace UPC.PiggySave.DA
 {
     interface IBancoDA {
-        int Registrar(BancoBE.Entidad objBancoBE);
-        bool Modificar(BancoBE.Entidad objBancoBE);
-        BancoBE.Entidad Buscar(int idBanco);
+        Banco Registrar(Banco objBancoBE);
+        bool Modificar(Banco objBancoBE);
+        Banco Buscar(int idBanco);
         bool Eliminar(int idBanco);
     }
-    class BancoDA : IBancoDA
+    public class BancoDA : IBancoDA
     {
         dbPiggySaveDataContext dc;
         public BancoDA()
@@ -21,30 +21,35 @@ namespace UPC.PiggySave.DA
             dc = new dbPiggySaveDataContext();
         }
 
-        public BancoBE.Entidad Buscar(int idBanco)
+        public Banco Buscar(int idBanco)
         {
-            var objBancoBE = new BancoBE.Entidad();
             try
             {
-                var objBanco = (from banco in dc.Bancos
-                                where banco.idBanco.Equals(idBanco)
-                                select banco).Single();
+                try
+                {
+                    var banco = (from ban in dc.Bancos
+                             where ban.idBanco.Equals(idBanco)
+                             select ban).Single();
 
-                objBancoBE.idBanco = objBanco.idBanco;
-                objBancoBE.nombre = objBanco.nombre;
-                objBancoBE.abreviatura = objBanco.abreviatura;
+                    return banco;
+                }
+                catch (InvalidOperationException)
+                {
+                    throw new DAException(string.Format("No se encontro registros con id: {0}", idBanco));
+                }
+            }
+            catch (DAException daex)
+            {
+                throw daex;
             }
             catch (Exception ex)
             {
-                throw ex;
+                throw new DAException(DAConstants.ExceptionMessage, ex);
             }
-
-            return objBancoBE;
         }
 
         public bool Eliminar(int idBanco)
         {
-            bool exito;
             try
             {
                 var objBanco = (from banco in dc.Bancos
@@ -54,65 +59,52 @@ namespace UPC.PiggySave.DA
                 dc.Bancos.DeleteOnSubmit(objBanco);
                 dc.SubmitChanges();
 
-                exito = true;
+                return true;
             }
             catch (Exception ex)
             {
-                throw ex;
+                throw new DAException(DAConstants.ExceptionMessage, ex);
             }
-
-            return exito;
         }
 
-        public bool Modificar(BancoBE.Entidad objBancoBE)
+        public bool Modificar(Banco objBanco)
         {
             bool exito;
             try
             {
-                var objBanco = (from banco in dc.Bancos
-                               where banco.idBanco.Equals(objBancoBE.idBanco)
-                               select banco).Single();
+                var query = (from banco in dc.Bancos
+                             where banco.idBanco.Equals(objBanco.idBanco)
+                             select banco).Single();
 
-                objBanco.nombre = objBancoBE.nombre;
-                objBanco.abreviatura = objBancoBE.abreviatura;
-                objBanco.fechaModifico = DateTime.Now;
-                objBanco.idUsuarioModifico = objBancoBE.idUsuarioRegistro;
+                query.nombre = objBanco.nombre;
+                query.abreviatura = objBanco.abreviatura;
+                query.fechaModifico = DateTime.Now;
+                query.idUsuarioModifico = objBanco.idUsuarioRegistro;
 
                 dc.SubmitChanges();
                 exito = true;
             }
             catch (Exception ex)
             {
-                throw ex;
+                throw new DAException(DAConstants.ExceptionMessage, ex);
             }
 
             return exito;
         }
 
-        public int Registrar(BancoBE.Entidad objBancoBE)
+        public Banco Registrar(Banco objBanco)
         {
-            int id;
             try
             {
-                Banco objBanco = new Banco { 
-                    nombre = objBancoBE.nombre,
-                    abreviatura = objBancoBE.abreviatura,
-                    fechaRegistro = objBancoBE.fechaRegistro,
-                    idUsuarioRegistro = objBancoBE.idUsuarioRegistro,
-                    activo = true
-                };
-
                 dc.Bancos.InsertOnSubmit(objBanco);
                 dc.SubmitChanges();
 
-                id = objBanco.idBanco;
+                return objBanco;
             }
             catch (Exception ex)
             {
-                throw ex;
+                throw new DAException(DAConstants.ExceptionMessage, ex);
             }
-
-            return id;
         }
     }
 }
