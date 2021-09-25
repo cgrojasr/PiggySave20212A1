@@ -9,5 +9,6 @@ namespace UPC.PiggySave.BL.Tools
     public class BLConstants
     {
         public const string ExceptionMessage = "Error en la lógica de negocios";
+        public const string NombreColaPS = "colaPS";
     }
 }

@@ -31,17 +31,17 @@ namespace UPC.PiggySave.BL
 
                 respuesta = objTransaccionDA.Modificar(objTransaccion);
             }
-            catch (DAException DAex) {
-                throw new PiggySaveException(DAex.Message);
-            }
-            catch (BLException BLex)
-            {
-                throw new PiggySaveException(BLex.Message);
-            }
             catch (Exception ex)
             {
-                var objBLException = new BLException(BLConstants.ExceptionMessage, ex);
-                throw new PiggySaveException(objBLException.Message);
+                if (ex is Exception)
+                {
+                    var objBLException = new BLException(BLConstants.ExceptionMessage, ex);
+                    throw new PiggySaveException(objBLException.Message);
+                }
+                else
+                {
+                    throw new PiggySaveException(ex.Message);
+                }
             }
 
             return respuesta;
@@ -80,27 +80,30 @@ namespace UPC.PiggySave.BL
                 }
                 var objMovimientoDA = new MovimientoDA();
                 objTransaccion.Movimientos.Assign(objMovimientoDA.RegistroMasivo(movimientos));
-            }
-            catch (DAException DAex)
-            {
-                throw new PiggySaveException(DAex.Message);
-            }
-            catch (BLException BLex)
-            {
-                throw new PiggySaveException(BLex.Message);
+
+                //PASO 4: Enviar el mensaje al cliente
+                RabbitMQClient mq = new RabbitMQClient();
+                var mensaje = String.Format("La transacción número #{0} ha sido registrada el día {1} en Piggy Save.", objTransaccion.idTransaccion, objTransaccion.fecha.ToString("dd/MM/yyyy"));
+                mq.EnviarMensaje(BLConstants.NombreColaPS, mensaje);
+
+                return objTransaccion;
             }
             catch (Exception ex)
             {
-                var objBLException = new BLException(BLConstants.ExceptionMessage, ex);
-                throw new PiggySaveException(objBLException.Message);
+                if (ex is Exception)
+                {
+                    var objBLException = new BLException(BLConstants.ExceptionMessage, ex);
+                    throw new PiggySaveException(objBLException.Message);
+                }
+                else {
+                    throw new PiggySaveException(ex.Message);
+                }
             }
-
-            return objTransaccion;
         }
 
         private int CalcularPeriodo(DateTime fechaTransaccion, int diaCierre, int numeroCuota)
         {
-            var periodo = 0;
+            int periodo;
             if (fechaTransaccion.Day > diaCierre)
                 periodo = fechaTransaccion.AddMonths(numeroCuota).Year * 100 + fechaTransaccion.AddMonths(numeroCuota).Month;
             else

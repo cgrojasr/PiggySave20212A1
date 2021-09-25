@@ -10,6 +10,7 @@ namespace UPC.PiggySave.DA
     interface ITransaccionDA {
         Transaccion Registro(Transaccion objTransaccionBE);
         bool Modificar(Transaccion objTrasaccionBE);
+        IEnumerable<Transaccion> ListarPorUsuarioEnPeriodo(int idUsuario, int periodo);
     }
 
     public class TransaccionDA : ITransaccionDA
@@ -19,6 +20,24 @@ namespace UPC.PiggySave.DA
         public TransaccionDA()
         {
             dc = new dbPiggySaveDataContext();
+        }
+
+        public IEnumerable<Transaccion> ListarPorUsuarioEnPeriodo(int idUsuario, int periodo)
+        {
+            try
+            {
+                var transacciones = from trans in dc.Transaccions
+                                    where trans.idUsuario.Equals(idUsuario) && 
+                                    (trans.fecha.Year * 100 + trans.fecha.Month).Equals(periodo)
+                                    select trans;
+
+                return transacciones;
+            }
+            catch (Exception ex)
+            {
+                var objException = new DAException(DAConstants.ExceptionMessage, ex);
+                throw objException;
+            }
         }
 
         public bool Modificar(Transaccion objTrasaccion)

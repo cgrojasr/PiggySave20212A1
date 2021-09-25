@@ -157,6 +157,7 @@
     <Compile Include="Areas\HelpPage\SampleGeneration\TextSample.cs" />
     <Compile Include="Areas\HelpPage\XmlDocumentationProvider.cs" />
     <Compile Include="Controllers\BancoController.cs" />
+    <Compile Include="Controllers\TarjetaController.cs" />
     <Compile Include="Controllers\TransaccionController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -164,6 +165,7 @@
     <Compile Include="Models\BancoModel.cs" />
     <Compile Include="Models\MovimientoModel.cs" />
     <Compile Include="Models\Response.cs" />
+    <Compile Include="Models\TarjetaModel.cs" />
     <Compile Include="Models\TransaccionModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

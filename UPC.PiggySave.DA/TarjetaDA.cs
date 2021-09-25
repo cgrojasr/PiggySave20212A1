@@ -21,12 +21,6 @@ namespace UPC.PiggySave.DA
             dc = new dbPiggySaveDataContext();
         }
 
-        /// <summary>
-        /// Busca los datos de una tarjeta de un usuario
-        /// </summary>
-        /// <param name="idTarjeta">identity de la tarjeta en la tabla Tarjeta</param>
-        /// <param name="idUsuario">identity del usuario en la tabla Usuario</param>
-        /// <returns>Los datos de la tarjeta un usuario</returns>
         public TarjetaXUsuario BuscarPorUsuario(int idTarjeta, int idUsuario)
         {
             var tarjeta = new TarjetaXUsuario();
@@ -45,11 +39,6 @@ namespace UPC.PiggySave.DA
             return tarjeta;
         }
 
-        /// <summary>
-        /// Metodo para buscar las tarjetas que un banco ofrece a los usuarios
-        /// </summary>
-        /// <param name="idBanco">identity del banco en la base de datos</param>
-        /// <returns>Listado de todas las tarjetas del banco</returns>
         public IEnumerable<Tarjeta> ListarPorBanco(int idBanco)
         {
             try
@@ -67,11 +56,6 @@ namespace UPC.PiggySave.DA
             }
         }
 
-        /// <summary>
-        /// Metodo que busca las tarjetas que un usuario tiene registrados
-        /// </summary>
-        /// <param name="idUsuario">id que lo identifica en la base de datos</param>
-        /// <returns>Lista de tarjetas registradas para el usuario con el id consultado</returns>
         public IEnumerable<TarjetaXUsuario> ListarPorUsuario(int idUsuario)
         {
             try

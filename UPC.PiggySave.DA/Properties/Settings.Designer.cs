@@ -26,8 +26,8 @@ namespace UPC.PiggySave.DA.Properties {
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.ConnectionString)]
-        [global::System.Configuration.DefaultSettingValueAttribute("Data Source=upcdsd02.c7hd087gmch2.us-east-2.rds.amazonaws.com;Initial Catalog=dbP" +
-            "iggySave;Persist Security Info=True;User ID=admin;Password=password")]
+        [global::System.Configuration.DefaultSettingValueAttribute("Data Source=rds-upcaad.cwytqgl1psxt.us-east-2.rds.amazonaws.com;Initial Catalog=d" +
+            "bPiggySave;Persist Security Info=True;User ID=admin;Password=password")]
         public string dbPiggySaveConnectionString {
             get {
                 return ((string)(this["dbPiggySaveConnectionString"]));

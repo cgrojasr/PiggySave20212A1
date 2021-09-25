@@ -14,8 +14,7 @@ namespace UPC.PiggySave.DA
     }
     public class MovimientoDA : IMovimientoDA
     {
-        dbPiggySaveDataContext dc;
-
+        private readonly dbPiggySaveDataContext dc;
         public MovimientoDA()
         {
             dc = new dbPiggySaveDataContext();
@@ -27,7 +26,6 @@ namespace UPC.PiggySave.DA
             {
                 dc.Movimientos.InsertAllOnSubmit(lstMovimiento);
                 dc.SubmitChanges();
-                
                 return lstMovimiento;
             }
             catch (Exception ex)
@@ -42,11 +40,12 @@ namespace UPC.PiggySave.DA
             bool respuesta;
             try
             {
-                var movemientos = from mov in dc.Movimientos
+                var movimientos = from mov in dc.Movimientos
                                   where mov.idTransaccion.Equals(idTransaccion)
                                   select mov;
 
-                foreach(Movimiento movimiento in movemientos) {
+                foreach (Movimiento movimiento in movimientos)
+                {
                     movimiento.activo = false;
                 }
 
