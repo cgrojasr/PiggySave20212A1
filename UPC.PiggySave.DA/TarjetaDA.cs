@@ -3,22 +3,28 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using UPC.PiggySave.DA.Interfaces;
 using UPC.PiggySave.DA.Tools;
+using System.Configuration;
 
 namespace UPC.PiggySave.DA
 {
-    interface ITarjetaDA
-    {
-        TarjetaXUsuario BuscarPorUsuario(int idTarjeta, int idUsuario);
-        IEnumerable<Tarjeta> ListarPorBanco(int idBanco);
-        IEnumerable<TarjetaXUsuario> ListarPorUsuario(int idUsuario);
-    }
-    public class TarjetaDA : ITarjetaDA
+    public class TarjetaDA : ITarjetaDA, ICRUD<Tarjeta>
     {
         private readonly dbPiggySaveDataContext dc;
         public TarjetaDA()
         {
-            dc = new dbPiggySaveDataContext();
+            dc = new dbPiggySaveDataContext(ConfigurationManager.ConnectionStrings["DBC"].ConnectionString);
+        }
+
+        public bool Modificar(Tarjeta objT)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Tarjeta Buscar(int id)
+        {
+            throw new NotImplementedException();
         }
 
         public TarjetaXUsuario BuscarPorUsuario(int idTarjeta, int idUsuario)
@@ -37,6 +43,11 @@ namespace UPC.PiggySave.DA
             }
 
             return tarjeta;
+        }
+
+        public bool Eliminar(int id)
+        {
+            throw new NotImplementedException();
         }
 
         public IEnumerable<Tarjeta> ListarPorBanco(int idBanco)
@@ -71,6 +82,11 @@ namespace UPC.PiggySave.DA
                 var objException = new DAException(DAConstants.ExceptionMessage, ex);
                 throw objException;
             }
+        }
+
+        public Tarjeta Registrar(Tarjeta objT)
+        {
+            throw new NotImplementedException();
         }
     }
 }

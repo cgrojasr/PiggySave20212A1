@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -19,7 +20,7 @@ namespace UPC.PiggySave.DA
 
         public TransaccionDA()
         {
-            dc = new dbPiggySaveDataContext();
+            dc = new dbPiggySaveDataContext(ConfigurationManager.ConnectionStrings["DBC"].ConnectionString);
         }
 
         public IEnumerable<Transaccion> ListarPorUsuarioEnPeriodo(int idUsuario, int periodo)

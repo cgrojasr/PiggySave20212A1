@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Data.Linq;
 using System.Linq;
 using System.Text;
@@ -17,7 +18,7 @@ namespace UPC.PiggySave.DA
         private readonly dbPiggySaveDataContext dc;
         public MovimientoDA()
         {
-            dc = new dbPiggySaveDataContext();
+            dc = new dbPiggySaveDataContext(ConfigurationManager.ConnectionStrings["DBC"].ConnectionString);
         }
 
         public IEnumerable<Movimiento> RegistroMasivo(List<Movimiento> lstMovimiento)

@@ -1,25 +1,23 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using UPC.PiggySave.DA.Interfaces;
 using UPC.PiggySave.DA.Tools;
 
 namespace UPC.PiggySave.DA
 {
     interface IBancoDA {
         IEnumerable<Banco> ListarPorActivo(bool activo);
-        Banco Registrar(Banco objBancoBE);
-        bool Modificar(Banco objBancoBE);
-        Banco Buscar(int idBanco);
-        bool Eliminar(int idBanco);
     }
-    public class BancoDA : IBancoDA
+    public class BancoDA : IBancoDA, ICRUD<Banco>
     {
         dbPiggySaveDataContext dc;
         public BancoDA()
         {
-            dc = new dbPiggySaveDataContext();
+            dc = new dbPiggySaveDataContext(ConfigurationManager.ConnectionStrings["DBC"].ConnectionString);
         }
 
         public Banco Buscar(int idBanco)

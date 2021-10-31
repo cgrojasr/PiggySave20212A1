@@ -32,6 +32,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
+    <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.Data.Linq" />
     <Reference Include="System.Xml.Linq" />
@@ -44,6 +45,8 @@
   <ItemGroup>
     <Compile Include="BancoDA.cs" />
     <Compile Include="ExcepcionDA.cs" />
+    <Compile Include="Interfaces\ICRUD.cs" />
+    <Compile Include="Interfaces\ITarjetaDA.cs" />
     <Compile Include="Tools\DAConstants.cs" />
     <Compile Include="Tools\DAException.cs" />
     <Compile Include="dbPiggySave.designer.cs">
