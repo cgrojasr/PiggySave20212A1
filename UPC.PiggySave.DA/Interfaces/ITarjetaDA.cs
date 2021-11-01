@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace UPC.PiggySave.DA.Interfaces
 {
-    interface ITarjetaDA
+    interface ITarjetaDA : ICRUD<Tarjeta>
     {
         TarjetaXUsuario BuscarPorUsuario(int idTarjeta, int idUsuario);
         IEnumerable<Tarjeta> ListarPorBanco(int idBanco);

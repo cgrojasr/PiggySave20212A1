@@ -9,12 +9,9 @@ using UPC.PiggySave.DA.Tools;
 
 namespace UPC.PiggySave.DA
 {
-    interface IBancoDA {
-        IEnumerable<Banco> ListarPorActivo(bool activo);
-    }
-    public class BancoDA : IBancoDA, ICRUD<Banco>
+    public class BancoDA : IBancoDA
     {
-        dbPiggySaveDataContext dc;
+        private readonly dbPiggySaveDataContext dc;
         public BancoDA()
         {
             dc = new dbPiggySaveDataContext(ConfigurationManager.ConnectionStrings["DBC"].ConnectionString);

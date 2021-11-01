@@ -9,7 +9,7 @@ using System.Configuration;
 
 namespace UPC.PiggySave.DA
 {
-    public class TarjetaDA : ITarjetaDA, ICRUD<Tarjeta>
+    public class TarjetaDA : ITarjetaDA
     {
         private readonly dbPiggySaveDataContext dc;
         public TarjetaDA()

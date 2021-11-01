@@ -45,8 +45,11 @@
   <ItemGroup>
     <Compile Include="BancoDA.cs" />
     <Compile Include="ExcepcionDA.cs" />
+    <Compile Include="Interfaces\IBanco.cs" />
     <Compile Include="Interfaces\ICRUD.cs" />
+    <Compile Include="Interfaces\IMonedaDA.cs" />
     <Compile Include="Interfaces\ITarjetaDA.cs" />
+    <Compile Include="MonedaDA.cs" />
     <Compile Include="Tools\DAConstants.cs" />
     <Compile Include="Tools\DAException.cs" />
     <Compile Include="dbPiggySave.designer.cs">
