@@ -1,6 +1,7 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using UPC.PiggySave.BL;
 using UPC.PiggySave.DA;
@@ -52,7 +53,7 @@ namespace UPC.PiggySave.UT
         public void Listar() {
             var result = objMonedaBL.Listar();
 
-            Assert.AreEqual(4, ((List<Moneda>)result).Count);
+            Assert.AreEqual(4, result.Count());
 
         }
 

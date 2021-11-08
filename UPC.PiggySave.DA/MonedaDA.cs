@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using UPC.PiggySave.DA.Interfaces;
+using UPC.PiggySave.DA.Tools;
 
 namespace UPC.PiggySave.DA
 {
@@ -14,8 +15,7 @@ namespace UPC.PiggySave.DA
 
         public MonedaDA()
         {
-            //dc = new dbPiggySaveDataContext(ConfigurationManager.ConnectionStrings["DBC"].ConnectionString);
-            dc = new dbPiggySaveDataContext("Data Source=rds-upcaad01.cwytqgl1psxt.us-east-2.rds.amazonaws.com;Initial Catalog=dbPiggySave;Persist Security Info=True;User ID=admin;Password=password");
+            dc = new dbPiggySaveDataContext(ConfigurationManager.ConnectionStrings["DBC"].ConnectionString);
         }
 
         public Moneda Buscar(int id)
@@ -28,9 +28,10 @@ namespace UPC.PiggySave.DA
 
                 return query;
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                throw;
+                var objException = new DAException(DAConstants.ExceptionMessage, ex);
+                throw objException;
             }
         }
 
@@ -47,9 +48,9 @@ namespace UPC.PiggySave.DA
 
                 return true;
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                //Control de excepcion 
+                var objException = new DAException(DAConstants.ExceptionMessage, ex);
                 return false;
             }
         }
@@ -63,9 +64,10 @@ namespace UPC.PiggySave.DA
 
                 return query;
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                throw;
+                var objException = new DAException(DAConstants.ExceptionMessage, ex);
+                throw objException;
             }
         }
 
@@ -86,9 +88,9 @@ namespace UPC.PiggySave.DA
                 return true;
 
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                //Control de la excepcion
+                var objException = new DAException(DAConstants.ExceptionMessage, ex);
                 return false;
             }
         }
@@ -103,10 +105,10 @@ namespace UPC.PiggySave.DA
 
                 return objMoneda;
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-
-                throw;
+                var objException = new DAException(DAConstants.ExceptionMessage, ex);
+                throw objException;
             }
         }
     }
