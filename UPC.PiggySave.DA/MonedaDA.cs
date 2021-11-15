@@ -81,6 +81,7 @@ namespace UPC.PiggySave.DA
 
                 query.nombre = objMoneda.nombre;
                 query.abreviatura = objMoneda.abreviatura;
+                query.activo = objMoneda.activo;
                 query.idUsuarioModifico = objMoneda.idUsuarioModifico;
                 query.fechaModifico = DateTime.Now;
 
