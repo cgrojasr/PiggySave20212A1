@@ -11,7 +11,8 @@ namespace UPC.PiggySave.BL.Tools
     {
         public void EnviarMensaje(string cola, string mensaje) {
             var factory = new ConnectionFactory() { 
-                HostName = "18.218.223.184",
+                //HostName = "18.218.223.184",
+                HostName = "18.191.117.143",
                 Port = 5672,
                 VirtualHost = "/",
                 Password = "admin",

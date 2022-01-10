@@ -11,7 +11,6 @@ using UPC.PiggySave.REST.Models;
 
 namespace UPC.PiggySave.REST.Controllers
 {
-    [RoutePrefix("api/transaccion")]
     public class TransaccionController : ApiController
     {
         private readonly TransaccionBL objTransaccionBL;

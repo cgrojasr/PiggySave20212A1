@@ -55,31 +55,31 @@ namespace UPC.PiggySave.BL
                     throw new BLException("Tu monto no puede ser menor o igual a 0");
 
                 //PASO 1: Se registra la transacción
-                objTransaccion.fechaRegistro = DateTime.Now;
-                objTransaccion.activo = true;
-                objTransaccion = objTransaccionDA.Registro(objTransaccion);
+                //objTransaccion.fechaRegistro = DateTime.Now;
+                //objTransaccion.activo = true;
+                //objTransaccion = objTransaccionDA.Registro(objTransaccion);
 
-                //PASO 2: Se debe buscar los datos de la tarjeta utilizada por el usuario
-                var objTarjetaDA = new TarjetaDA();
-                var tarjeta = objTarjetaDA.BuscarPorUsuario(objTransaccion.idTarjeta, objTransaccion.idUsuario);
+                ////PASO 2: Se debe buscar los datos de la tarjeta utilizada por el usuario
+                //var objTarjetaDA = new TarjetaDA();
+                //var tarjeta = objTarjetaDA.BuscarPorUsuario(objTransaccion.idTarjeta, objTransaccion.idUsuario);
 
-                //PASO 3: Registrar los movimiento que se generan de la transaccion 
-                var movimientos = new List<Movimiento>();
-                for (int i=0; i<objTransaccion.cuotas; i++) {
-                    var movimiento = new Movimiento {
-                        idTransaccion = objTransaccion.idTransaccion,
-                        idMoneda = objTransaccion.idMoneda,
-                        idUsuarioRegistro = objTransaccion.idUsuarioRegistro,
-                        numeroCuota = i + 1,
-                        periodoFacturacion = CalcularPeriodo(objTransaccion.fecha, tarjeta.diaCierre, i + 1),
-                        monto = objTransaccion.montoCuota,
-                        fechaRegistro = DateTime.Now,
-                        activo = true
-                    };
-                    movimientos.Add(movimiento);
-                }
-                var objMovimientoDA = new MovimientoDA();
-                objTransaccion.Movimientos.Assign(objMovimientoDA.RegistroMasivo(movimientos));
+                ////PASO 3: Registrar los movimiento que se generan de la transaccion 
+                //var movimientos = new List<Movimiento>();
+                //for (int i=0; i<objTransaccion.cuotas; i++) {
+                //    var movimiento = new Movimiento {
+                //        idTransaccion = objTransaccion.idTransaccion,
+                //        idMoneda = objTransaccion.idMoneda,
+                //        idUsuarioRegistro = objTransaccion.idUsuarioRegistro,
+                //        numeroCuota = i + 1,
+                //        periodoFacturacion = CalcularPeriodo(objTransaccion.fecha, tarjeta.diaCierre, i + 1),
+                //        monto = objTransaccion.montoCuota,
+                //        fechaRegistro = DateTime.Now,
+                //        activo = true
+                //    };
+                //    movimientos.Add(movimiento);
+                //}
+                //var objMovimientoDA = new MovimientoDA();
+                //objTransaccion.Movimientos.Assign(objMovimientoDA.RegistroMasivo(movimientos));
 
                 //PASO 4: Enviar el mensaje al cliente
                 RabbitMQClient mq = new RabbitMQClient();
