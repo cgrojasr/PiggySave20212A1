@@ -49,6 +49,7 @@
     <Compile Include="Interfaces\ICRUD.cs" />
     <Compile Include="Interfaces\IMonedaDA.cs" />
     <Compile Include="Interfaces\ITarjetaDA.cs" />
+    <Compile Include="Interfaces\IUsuarioDA.cs" />
     <Compile Include="MonedaDA.cs" />
     <Compile Include="Tools\DAConstants.cs" />
     <Compile Include="Tools\DAException.cs" />

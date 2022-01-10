@@ -52,6 +52,7 @@
     <Compile Include="MonedaUT.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TransaccionUT.cs" />
+    <Compile Include="UsuarioUT.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
