@@ -81,6 +81,7 @@ namespace UPC.PiggySave.DA
         {
             try
             {
+                objUsuario.fechaRegistro = DateTime.Now;
                 dc.Usuarios.InsertOnSubmit(objUsuario);
                 dc.SubmitChanges(); //Aqui es cuando la base de datos asigna el id al objeto usuario
 
